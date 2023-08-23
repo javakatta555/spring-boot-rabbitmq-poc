@@ -19,17 +19,12 @@ public class RabbitMQConfig {
     @Value("${rabbit.port}")
     private int port;
 
-    @Value("${rabbit.product.queue}")
-    private String queue;
-
-    @Value("${rabbit.order.queue}")
-    private String orderQueue;
-
     @Value("${rabbit.auth.username}")
     private String username;
 
     @Value("${rabbit.auth.password}")
     private String password;
+
 
     @Bean
     public CachingConnectionFactory connectionFactory() {
@@ -49,16 +44,6 @@ public class RabbitMQConfig {
     @Bean
     public RabbitTemplate rabbitTemplate() {
         return new RabbitTemplate(connectionFactory());
-    }
-
-    @Bean
-    public Queue myQueue() {
-        return new Queue(queue);
-    }
-
-    @Bean
-    public Queue orderQueue() {
-        return new Queue(orderQueue);
     }
 
 }
