@@ -25,7 +25,7 @@ public class OrderController {
 
     @PostMapping("/order")
     public Order publishOrder(@RequestBody Order order) {
-        orderPublisher.publishOrderOnRabbit(order.toString());
+        orderPublisher.publishOrderOnRabbit(order);
         return order;
     }
 }

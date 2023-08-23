@@ -1,5 +1,7 @@
 package com.swapnil.publisher;
 
+import com.swapnil.Util.JsonUtils;
+import com.swapnil.model.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
@@ -21,7 +23,8 @@ public class OrderPublisher {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    public void publishOrderOnRabbit(final String message) {
+    public void publishOrderOnRabbit(final Order order) {
+        String message = JsonUtils.asJsonString(order);
         log.info("[publishOrderOnRabbit] message {}", message);
         if(message == null) {
             return;

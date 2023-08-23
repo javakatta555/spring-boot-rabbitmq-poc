@@ -24,8 +24,8 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public Product publishProduct(@RequestBody Product product) throws JsonProcessingException {
-        productPublisher.publishOnRabbit(product.toString());
+    public Product publishProduct(@RequestBody Product product)  {
+        productPublisher.publishOnRabbit(product);
         return product;
     }
 }

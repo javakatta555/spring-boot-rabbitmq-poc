@@ -1,6 +1,10 @@
 package com.swapnil.publisher;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rabbitmq.tools.json.JSONUtil;
+import com.swapnil.Util.JsonUtils;
 import com.swapnil.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -25,7 +29,9 @@ public class ProductPublisher {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    public void publishOnRabbit(final String message) {
+    public void publishOnRabbit(final Product product)  {
+        String message = "";
+        message = JsonUtils.asJsonString(product);
         log.info("[publishOnRabbit] message {}", message);
         if(message == null) {
             return;
@@ -33,6 +39,6 @@ public class ProductPublisher {
         final MessageProperties messageProperties = new MessageProperties();
         messageProperties.setDelay(5);
         log.info("[publishOnRabbit] Publishing to exchange {} with routing key {}", exchange, routingKey);
-        rabbitTemplate.send(exchange,routingKey,new Message(message.getBytes(),messageProperties));
+        rabbitTemplate.convertAndSend(exchange,routingKey, message);
     }
 }
