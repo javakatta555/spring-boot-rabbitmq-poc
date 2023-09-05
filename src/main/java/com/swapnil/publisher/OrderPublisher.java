@@ -6,6 +6,7 @@ import com.swapnil.model.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.utils.SerializationUtils;
@@ -38,6 +39,7 @@ public class OrderPublisher {
         Message orderMessage = MessageBuilder.withBody(message.getBytes())
                                 .setContentType(MessageProperties.CONTENT_TYPE_JSON)
                                 .setHeader(RabbitMQConstant.X_DELAY_HEADER, 15000)
+                                .setDeliveryMode(MessageDeliveryMode.PERSISTENT)
                                 .build();
         log.info("[publishOrderOnRabbit] Publishing to exchange {} with routing key {}", exchange, routingKey);
         rabbitTemplate.send(exchange,routingKey,orderMessage);
