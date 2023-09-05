@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ProductConsumer {
 
-    @RabbitListener(queues = {"${rabbit.product.queue}"})
+    @RabbitListener(queues = {"${rabbit.product.queue}"},containerFactory = "productRabbitListenerContainerFactory")
     public void consume(String message){
         Product product = JsonUtils.parseObject(message, Product.class);
         log.info(String.format("Received message -> %s", message));
