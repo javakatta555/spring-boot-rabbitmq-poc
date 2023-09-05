@@ -1,20 +1,13 @@
 package com.swapnil.publisher;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rabbitmq.tools.json.JSONUtil;
 import com.swapnil.Util.JsonUtils;
 import com.swapnil.model.Product;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.nio.charset.StandardCharsets;
 
 @Service
 @Slf4j

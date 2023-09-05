@@ -1,10 +1,8 @@
 package com.swapnil.consumer;
 
-import com.rabbitmq.client.impl.AMQImpl;
 import com.swapnil.Util.JsonUtils;
 import com.swapnil.model.Order;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
