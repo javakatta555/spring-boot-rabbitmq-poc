@@ -1,5 +1,6 @@
 package com.swapnil.config;
 
+import com.swapnil.constants.RabbitMQConstant;
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +25,10 @@ public class OrderRabbitConfig {
 
     @Bean
     public Exchange orderDelayedExchange() {
-        return ExchangeBuilder.directExchange(orderExchange).build();
+        return ExchangeBuilder.directExchange(orderExchange)
+                .delayed()
+                .withArgument(RabbitMQConstant.X_DELAY_HEADER,RabbitMQConstant.DIRECT)
+                .build();
     }
 
     @Bean
