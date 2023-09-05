@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 public class ProductConsumer {
 
     @RabbitListener(queues = {"${rabbit.product.queue}"},containerFactory = "productRabbitListenerContainerFactory")
-    public void consume(String message){
-        Product product = JsonUtils.parseObject(message, Product.class);
-        log.info(String.format("Received message -> %s", message));
+    public void consume(Product product){
         log.info(String.format("Received message -> %s", product));
     }
 }
